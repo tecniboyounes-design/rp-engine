@@ -1,0 +1,34 @@
+name: Sync dev -> main
+
+on:
+  push:
+    branches: [ "dev" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create or update PR dev -> main
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: dev-to-main
+          base: main
+          title: "Sync dev -> main"
+          body: "Auto PR to keep main updated from dev."
+          commit-message: "Sync dev -> main"
+          labels: "automerge"
+
+      - name: Enable auto-merge (squash)
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
+        if: steps.cpr.outputs.pull-request-number != ''
