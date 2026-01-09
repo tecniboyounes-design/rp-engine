@@ -1,0 +1,59 @@
+### Test Variables Bulk Endpoint
+
+POST http://localhost:3000/api/article-data/bulk
+Content-Type: application/json
+
+{
+  "values": [
+    "WACA_DD_2xIDR_IAS"
+  ]
+}
+
+###
+GET http://localhost:3000/api/article-data/PLT_T100_LIN
+
+###
+POST http://localhost:3000/api/material-data/bulk
+Content-Type: application/json
+
+{
+  "values": [
+    "EG_ED_HGS_MDF_H3131_ST12_18",
+    "EG_HPL_HGF_F204_ST9_0_8",
+    "EG_HPL_HGF_F206_ST9_0_6",
+    "EG_HPL_HGF_F206_ST9_0_8",
+    "EG_HPL_HGF_F235_ST76_0_6",
+    "EG_HPL_HGF_F235_ST76_0_8",
+    "EG_HPL_HGF_F237_ST76_0_6",
+    "EG_HPL_HGF_F237_ST76_0_8",
+    "EG_HPL_HGF_F243_ST76_0_6",
+    "EG_HPL_HGF_F243_ST76_0_8"
+  ]
+}
+
+
+
+### Test with single variable
+
+POST http://localhost:3000/api/mat/recursive/bulk
+Content-Type: application/json
+
+{
+  "values": [
+    "MAT_LS_1",
+    "MAT_RS_1"
+  ]
+}
+
+### Test with multiple variables
+
+GET http://localhost:3000/api/imos/recursive/MAT_LS_1
+
+### Test with empty array
+
+POST http://localhost:3000/api/variables/nested/bulk
+Content-Type: application/json
+
+{
+  "variables": []
+}

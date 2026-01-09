@@ -1,0 +1,1113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model CABBACK {
+  NAME            String    @db.VarChar(30)
+  C_NAME          String    @db.VarChar(30)
+  TYPE            Int
+  DISTLR          Float     @db.Real
+  DISTUP          Float     @db.Real
+  KMS             String    @db.VarChar(30)
+  FLAG_DOOR       Int
+  THKINCLDED      Int
+  CONTYPE         String    @db.VarChar(30)
+  CONDIST         Float     @db.Real
+  CONDSTART       Float     @db.Real
+  CONDEND         Float     @db.Real
+  NUTUSTLAEN      Float     @db.Real
+  NUTUSTL_KR      Float     @db.Real
+  NUTUSTL_UB      Float     @db.Real
+  NUTUSTL_OB      Float     @db.Real
+  NUTUSTQUER      Float     @db.Real
+  NUTUSTTIEF      Float     @db.Real
+  FLNUT_AUS       Int
+  FLNUT_A_KR      Int
+  FLNUT_A_UB      Int
+  FLNUT_A_OB      Int
+  FLVERB_KS       Int
+  FLVERB_BOD      Int
+  FLNUT_TDEF      Int
+  RGRDEL          Float     @db.Real
+  RGRDER          Float     @db.Real
+  RGRDET          Float     @db.Real
+  RGRDEB          Float     @db.Real
+  IFLAG_BE        Int
+  I_BEZUG         Int
+  ZEICHNNAME      String    @db.VarChar(8)
+  WIRD_GEZ        Int
+  DATUM           Int
+  VON_            String    @db.VarChar(30)
+  BT_INFO         String    @db.VarChar(30)
+  LINFLAG         Int
+  LIN_TEIL        String    @db.VarChar(80)
+  NUT_ERB         String    @db.VarChar(30)
+  DO_NUT_ERB      Boolean
+  CPINFO          String    @db.VarChar(30)
+  LR_SYM          Int
+  CPINFOTEXT      String    @db.VarChar(254)
+  SRGRDEL         String    @db.VarChar(50)
+  SRGRDER         String    @db.VarChar(50)
+  SRGRDET         String    @db.VarChar(50)
+  SRGRDEB         String    @db.VarChar(50)
+  SDISTLR         String    @db.VarChar(50)
+  CATALOG_ID      Int
+  WORKPLAN_ID     Int
+  INORDER         String    @db.VarChar(30)
+  SCONDIST        String    @db.VarChar(50)
+  SCONDSTART      String    @db.VarChar(50)
+  SCONDEND        String    @db.VarChar(50)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+
+  @@unique([NAME, INORDER], map: "CABBACK_IX")
+}
+
+model CABIN {
+  NAME            String    @db.VarChar(30)
+  C_NAME          String    @db.VarChar(30)
+  TYPE            Int
+  THK             String    @db.VarChar(30)
+  MAT             String    @db.VarChar(30)
+  CONTYPE         String    @db.VarChar(30)
+  CONDIST         Float     @db.Real
+  CONDISFRON      Float     @db.Real
+  CONDISBACK      Float     @db.Real
+  DOWELFLAG       Int
+  DOWELTYPE       String    @db.VarChar(30)
+  DOWELDIST       Float     @db.Real
+  DOWELSTART      Float     @db.Real
+  DOWELDEND       Float     @db.Real
+  UEBERST_R       String    @db.VarChar(80)
+  UEBERST_L       String    @db.VarChar(80)
+  UEBERST_V       String    @db.VarChar(80)
+  UEBERST_H       String    @db.VarChar(80)
+  KMS             String    @db.VarChar(30)
+  X_WINKEL        Float     @db.Real
+  Y_WINKEL        Float     @db.Real
+  HOEHE           Float     @db.Real
+  O_EB_SENKR      Int
+  ANRASTER        Int
+  KONSTTYP        Int
+  ZEICHNNAME      String    @db.VarChar(8)
+  WIRD_GEZ        Int
+  DATUM           Int
+  VON_            String    @db.VarChar(30)
+  BT_INFO         String    @db.VarChar(30)
+  LINFLAG         Int
+  LINFLAGD        Int
+  LIN_TEIL        String    @db.VarChar(80)
+  LIN_TEILD       String    @db.VarChar(80)
+  NUT_ERB         String    @db.VarChar(30)
+  DO_NUT_ERB      Boolean
+  MINABSLOCH      Float     @db.Real
+  MIRRORAUTO      Int
+  CPINFO          String    @db.VarChar(30)
+  CPINFOTEXT      String    @db.VarChar(254)
+  OEBHIANDRS      Int
+  VORECHTWBE      Int
+  VORECHTWTI      Int
+  HIRECHTWBE      Int
+  HIRECHTWTI      Int
+  CATALOG_ID      Int
+  WORKPLAN_ID     Int
+  INORDER         String    @db.VarChar(30)
+  SCONDIST        String    @db.VarChar(50)
+  SCONDFRON       String    @db.VarChar(50)
+  SCONDBACK       String    @db.VarChar(50)
+  SDOWELDIST      String    @db.VarChar(50)
+  SDOWELSTRT      String    @db.VarChar(50)
+  SDOWELDEND      String    @db.VarChar(50)
+  SHOEHE          String    @db.VarChar(50)
+  SX_WINKEL       String    @db.VarChar(50)
+  SY_WINKEL       String    @db.VarChar(50)
+  SMINABLOCH      String    @db.VarChar(50)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+
+  @@unique([NAME, INORDER], map: "CABIN_IX")
+}
+
+model CONDITIONS {
+  CONDITIONID Int    @unique(map: "CONDITIONS_IX")
+  COMMENT     String @db.VarChar(80)
+  ROOTTERMNUM Int
+}
+
+model CONDITIONSCOMPARISONS {
+  CONDITIONID    Int
+  TERMNUM        Int
+  PARENTTERMNUM  Int
+  LEFTVALUE      String @db.VarChar(80)
+  COMPARISONTYPE String @db.VarChar(2)
+  RIGHTVALUE     String @db.VarChar
+  DATATYPE       String @db.VarChar(2)
+
+  @@unique([CONDITIONID, TERMNUM], map: "CONDITIONSCOMPARISONS_IX")
+}
+
+model CONDITIONSOPERATIONS {
+  CONDITIONID   Int
+  TERMNUM       Int
+  PARENTTERMNUM Int
+  OPERATIONTYPE Int
+
+  @@unique([CONDITIONID, TERMNUM], map: "CONDITIONSOPERATIONS_IX")
+}
+
+model CONDITIONSPRINCIPLE {
+  NAME            String    @db.VarChar(50)
+  CONDTYPE        Int
+  CONDITIONID     Int
+  COMMENT         String    @db.VarChar(80)
+  INORDER         String    @db.VarChar(30)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+
+  @@unique([NAME, INORDER], map: "CONDITIONSPRINCIPLE_IX")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model COSTCENTER {
+  ID              Int
+  NAME            String   @db.VarChar(50)
+  COST            Float
+  COST_UNIT       String   @db.VarChar(255)
+  PLANT           String   @db.VarChar(255)
+  DEPARTMENT      String   @db.VarChar(255)
+  GRUPPE          String   @db.VarChar(255)
+  COMMENT         String   @db.VarChar(255)
+  SEQUENCE        Int
+  DATE_LASTCHANGE DateTime @db.Timestamp(6)
+  SOURCE          String   @db.VarChar(80)
+  PRODUCER        String   @db.VarChar(80)
+  SYS             Boolean
+
+  @@index([NAME, COST, COST_UNIT, SEQUENCE, ID], map: "IX_COSTCENTER_ID")
+  @@index([NAME], map: "IX_COSTCENTER_NAME")
+  @@ignore
+}
+
+model CSIDE {
+  NAME            String    @db.VarChar(30)
+  C_NAME          String    @db.VarChar(30)
+  MDRFLAG         Int
+  RASTER          Float     @db.Real
+  DISTFRONT       Float     @db.Real
+  DISTBACK        Float     @db.Real
+  DISTSTART       Float     @db.Real
+  DISTSEND        Float     @db.Real
+  DIAMETER        Float     @db.Real
+  DEPTH           Float     @db.Real
+  CCFLAG          Int
+  CCHEIGTH        Float     @db.Real
+  CCDEPTH         Float     @db.Real
+  CCRADIUS        Float     @db.Real
+  KMS             String    @db.VarChar(30)
+  ZEICHNNAME      String    @db.VarChar(8)
+  WIRD_GEZ        Int
+  DATUM           Int
+  VON_            String    @db.VarChar(30)
+  BT_INFO         String    @db.VarChar(30)
+  REF_VER         Int
+  REF_HOR         Int
+  MIRRORAUTO      Int
+  CPINFO          String    @db.VarChar(30)
+  CPINFOTEXT      String    @db.VarChar(254)
+  LT_VER          String    @db.VarChar(80)
+  WGTYPE          Int
+  MACH_CLASS      Int
+  INFO1           String    @db.VarChar(255)
+  INFO2           String    @db.VarChar(255)
+  SRASTER         String    @db.VarChar(50)
+  SDISTFRONT      String    @db.VarChar(50)
+  SDISTBACK       String    @db.VarChar(50)
+  SDISTSTART      String    @db.VarChar(50)
+  SDISTSEND       String    @db.VarChar(50)
+  SDIAMETER       String    @db.VarChar(50)
+  SDEPTH          String    @db.VarChar(50)
+  SWGTYPE         String    @db.VarChar(50)
+  SMACHCLASS      String    @db.VarChar(50)
+  CATALOG_ID      Int
+  WORKPLAN_ID     Int
+  INORDER         String    @db.VarChar(30)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+
+  @@unique([NAME, INORDER], map: "CSIDE_IX")
+}
+
+model DESCRIPTOR {
+  NAME            String    @db.VarChar(50)
+  COMMENT         String    @db.VarChar(80)
+  SAMPDIM         Float     @db.Real
+  INORDER         String    @db.VarChar(30)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+  DESC_TYPE       Int
+
+  @@unique([NAME, INORDER], map: "DESCRIPTOR_IX")
+}
+
+model DESCRIPTORVALUES {
+  NAME        String @db.VarChar(50)
+  NODENUM     Int
+  CONDITIONID Int
+  LINDIV      String @db.VarChar
+  COMMENT     String @db.VarChar(80)
+
+  @@unique([NAME, NODENUM], map: "DESCRIPTORVALUES_IX")
+}
+
+model DOOR {
+  NAME            String    @db.VarChar(30)
+  C_NAME          String    @db.VarChar(30)
+  VERSION         Float     @db.Real
+  DOORTYPE        Int
+  NOD             Int
+  DJOIN           Int
+  DISTC           Float     @db.Real
+  DISTJ           Float     @db.Real
+  DISTUP          Float     @db.Real
+  DISTDN          Float     @db.Real
+  TUERKLAPPE      Int
+  SEITEBODEN      Int
+  FRONTDIST       Float     @db.Real
+  TUER_L          String    @db.VarChar(32)
+  TUER_R          String    @db.VarChar(32)
+  ZEICHNNAME      String    @db.VarChar(8)
+  WIRD_GEZ        Int
+  DATUM           Int
+  VON_            String    @db.VarChar(30)
+  CADBLK_NAM      String    @db.VarChar(254)
+  CADBLK_ZEI      Int
+  BT_INFO         String    @db.VarChar(30)
+  FR_ABW_AKT      Int
+  FUGE_2T         Float     @db.Real
+  RECHTWJA        Int
+  RECHTWLI        Int
+  BEZUG           Int
+  CPINFO          String    @db.VarChar(30)
+  CPINFOR         String    @db.VarChar(30)
+  SEP_INFOLR      Boolean
+  NUT_ERB         String    @db.VarChar(30)
+  DO_NUT_ERB      Boolean
+  LR_SYM          Int
+  CPINFOTEXT      String    @db.VarChar(254)
+  FRONTDISTR      Float     @db.Real
+  LRSAMESIZE      Int
+  CONNREF         Int
+  INS_P_ZSIZ      Boolean
+  CONVERTINS      Boolean
+  SL_EINFUEG      Boolean
+  SL_KMS          String    @db.VarChar(30)
+  SL_LINKS        Boolean
+  SL_AUFLAGE      Float     @db.Real
+  SL_BREITE       Float     @db.Real
+  SL_ABOBEN       Float     @db.Real
+  SL_ABUNTEN      Float     @db.Real
+  SFRONTDIS       String    @db.VarChar(50)
+  SFRONTDISR      String    @db.VarChar(50)
+  SDISTC          String    @db.VarChar(50)
+  SDISTJ          String    @db.VarChar(50)
+  SDISTUP         String    @db.VarChar(50)
+  SDISTDN         String    @db.VarChar(50)
+  SL_TIEFENV      String    @db.VarChar(50)
+  SL_AUSSENE      Boolean
+  GROOVE          String    @db.VarChar(30)
+  FUGE2_FORM      String    @db.VarChar(50)
+  SL_SAUFLAG      String    @db.VarChar(50)
+  SL_SBREITE      String    @db.VarChar(50)
+  SL_SABOBEN      String    @db.VarChar(50)
+  SL_SABUNT       String    @db.VarChar(50)
+  CATALOG_ID      Int
+  WORKPLAN_ID     Int
+  INORDER         String    @db.VarChar(30)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+  IS_FILLER       Int
+
+  @@unique([NAME, INORDER], map: "DOOR_IX")
+}
+
+model DOORSING {
+  NAME            String    @db.VarChar(32)
+  CONTYPE         String    @db.VarChar(30)
+  CONDIST         Float     @db.Real
+  CONDSTART       Float     @db.Real
+  CONDEND         Float     @db.Real
+  GRIFF_MITT      String    @db.VarChar(30)
+  GRIFF_L         String    @db.VarChar(30)
+  GRIFF_R         String    @db.VarChar(30)
+  KMS             String    @db.VarChar(30)
+  ZEICHNNAME      String    @db.VarChar(8)
+  WIRD_GEZ        Int
+  BT_INFO         String    @db.VarChar(30)
+  LINFLAG         Int
+  LIN_TEIL        String    @db.VarChar(80)
+  DATUM           Int
+  VON_            String    @db.VarChar(30)
+  USE_C_VAL       Boolean
+  C_VAL           Float     @db.Real
+  CATALOG_ID      Int
+  WORKPLAN_ID     Int
+  INORDER         String    @db.VarChar(30)
+  SCONDIST        String    @db.VarChar(50)
+  SCONDSTART      String    @db.VarChar(50)
+  SCONDEND        String    @db.VarChar(50)
+  SC_VAL          String    @db.VarChar(50)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+  ALTLIN_BUFFER   String    @db.VarChar(80)
+
+  @@unique([NAME, INORDER], map: "DOORSING_IX")
+}
+
+model DRAWERSING {
+  NAME             String    @db.VarChar(50)
+  TYPE             Int
+  ZONE_ID          String    @db.VarChar(50)
+  SEQ              Int
+  DRAWER           String    @db.VarChar(51)
+  CATALOG_ID       Int
+  WORKPLAN_ID      Int
+  INORDER          String    @db.VarChar(30)
+  FRONTTYPE        Int
+  DATE_LASTCHANGE  DateTime? @db.Timestamp(6)
+  SOURCE           String    @db.VarChar(80)
+  PRODUCER         String    @db.VarChar(80)
+  SYS              Boolean
+  FRONTATTACH      Int
+  FRONTINFO        String    @db.VarChar(30)
+  FRONTTHK         String    @db.VarChar(50)
+  FRONTPARTDEF     String    @db.VarChar(50)
+  INSETFRONT       String    @db.VarChar(50)
+  INSETBACK        String    @db.VarChar(50)
+  INSETLEFT        String    @db.VarChar(50)
+  INSETRIGHT       String    @db.VarChar(50)
+  INSETTOP         String    @db.VarChar(50)
+  INSETBOT         String    @db.VarChar(50)
+  FRONTINTEGRATION Int
+  HINGEDEFVAR      Boolean
+  HINGEVAR         String    @db.VarChar(50)
+  DRMANINFO        String    @db.VarChar(30)
+  LFORMULA_FRONT   String    @db.VarChar(200)
+
+  @@unique([NAME, INORDER, TYPE, ZONE_ID, SEQ], map: "DRAWERSING_IX")
+}
+
+model DRAWERZONE {
+  NAME            String    @db.VarChar(50)
+  TYPE            Int
+  ZONE_ID         String    @db.VarChar(50)
+  DIVISION        String    @db.VarChar(1024)
+  FIRSTELEM       Int
+  LASTELEM        Int
+  FRONTREF        Boolean
+  REFTOP          Int
+  REFBOT          Int
+  BUILDMODE       Int
+  ONSET           Boolean
+  FRONTDEF        Boolean
+  ONSETTOP        String    @db.VarChar(50)
+  ONSETBOT        String    @db.VarChar(50)
+  ONSETLEFT       String    @db.VarChar(50)
+  ONSETRIGHT      String    @db.VarChar(50)
+  INSETFRONT      String    @db.VarChar(50)
+  INSETBACK       String    @db.VarChar(50)
+  BMODEISVAR      Boolean
+  BMODEVAR        String    @db.VarChar(50)
+  ONSETISVAR      Boolean
+  ONSETVAR        String    @db.VarChar(50)
+  FRREFISVAR      Boolean
+  FRREFVAR        String    @db.VarChar(50)
+  CATALOG_ID      Int
+  WORKPLAN_ID     Int
+  INORDER         String    @db.VarChar(30)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+  FACEFRAME       Boolean
+  INSETLEFT       String    @db.VarChar(50)
+  INSETRIGHT      String    @db.VarChar(50)
+  REFLEFT         Int
+  REFRIGHT        Int
+  FRONTDEFVERT    Boolean
+  FRONTEDGESIDE   Boolean
+  FRONTDIVSIDEREF Int
+  INSETTOP        String    @db.VarChar(50)
+  INSETBOT        String    @db.VarChar(50)
+
+  @@unique([NAME, ZONE_ID, TYPE, INORDER], map: "DRAWERZONE_IX")
+}
+
+model DR_FRONT {
+  NAME               String    @db.VarChar(50)
+  SET_FRONT          Boolean
+  PART_DEF           String    @db.VarChar(50)
+  CONNSIT_PULL       String    @db.VarChar(50)
+  CONNSIT_PULL2      String    @db.VarChar(50)
+  CONNSIT_PULL3      String    @db.VarChar(50)
+  PART_INFO          String    @db.VarChar(50)
+  THKSTR             String    @db.VarChar(50)
+  CATALOG_ID         Int
+  WORKPLAN_ID        Int
+  INORDER            String    @db.VarChar(30)
+  DATE_LASTCHANGE    DateTime? @db.Timestamp(6)
+  SOURCE             String    @db.VarChar(80)
+  PRODUCER           String    @db.VarChar(80)
+  SYS                Boolean
+  FOREIGN_FRONT      Boolean
+  MOVE_FOREIGN_FRONT Boolean
+
+  @@unique([NAME, INORDER], map: "DR_FRONT_IX")
+}
+
+model IMOS {
+  TYP             Int
+  NAME            String    @db.VarChar(50)
+  OPTNR           Int
+  WERT            String    @db.VarChar(1024)
+  OPTINFO         String    @db.VarChar(128)
+  POS             Int
+  LENGTH          Int
+  ORDERID         String    @db.VarChar(30)
+  CATALOG_ID      Int
+  WORKPLAN_ID     Int
+  CATEGORY        String    @db.VarChar(30)
+  FAMILY          String    @db.VarChar(50)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+  FROMSPEC        Int
+
+  @@unique([ORDERID, NAME, TYP, OPTNR], map: "IMOS_IX")
+  @@index([NAME, FAMILY], map: "IMOS_IX2")
+  @@index([NAME, ORDERID, FAMILY], map: "IMOS_IX3")
+}
+
+model KMS {
+  NAME            String    @db.VarChar(30)
+  MATERIAL        String    @db.VarChar(30)
+  THK             String    @db.VarChar(30)
+  SURF0           String    @db.VarChar(30)
+  SURF1           String    @db.VarChar(30)
+  GRAIN           Int
+  GRAINOR         String    @db.VarChar(30)
+  SUR0_GRNOR      String    @db.VarChar(30)
+  SUR1_GRNOR      String    @db.VarChar(30)
+  PROF1           String    @db.VarChar(30)
+  UEBERGANG1      Int
+  KONTNR1         String    @db.VarChar(30)
+  ANZEIGE1        Int
+  BESCHICHT1      Int
+  PROF2           String    @db.VarChar(30)
+  UEBERGANG2      Int
+  KONTNR2         String    @db.VarChar(30)
+  ANZEIGE2        Int
+  BESCHICHT2      Int
+  PROF3           String    @db.VarChar(30)
+  UEBERGANG3      Int
+  KONTNR3         String    @db.VarChar(30)
+  ANZEIGE3        Int
+  BESCHICHT3      Int
+  PROF4           String    @db.VarChar(30)
+  UEBERGANG4      Int
+  KONTNR4         String    @db.VarChar(30)
+  ANZEIGE4        Int
+  BESCHICHT4      Int
+  DATUM           Int
+  VON_            String    @db.VarChar(30)
+  MPPSTAT         Int
+  BENDCONT        String    @db.VarChar(30)
+  BENDDIR         Int
+  GRAIN_S0        Int
+  GRAIN_S1        Int
+  SAMPDIM_X       Float     @db.Real
+  SAMPDIM_Y       Float     @db.Real
+  EXTRUPART       Int
+  INFONAME        String    @db.VarChar(30)
+  PLANNAME        String    @db.VarChar(30)
+  FORMFINISH      Int
+  USEVIRTHK       Boolean
+  VIRTTHK         Float     @db.Real
+  PARTCATEGO      Int
+  CATALOG_ID      Int
+  WORKPLAN_ID     Int
+  INORDER         String    @db.VarChar(30)
+  CONNECTID       String    @db.VarChar(30)
+  SVIRTTHK        String    @db.VarChar(50)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+  COLORTOP        String    @db.VarChar(80)
+  COLORBOTTOM     String    @db.VarChar(80)
+  MITRETOCHILD    Int
+
+  @@unique([NAME, INORDER], map: "KMS_IX")
+}
+
+model MAT {
+  NAME            String    @db.VarChar(32)
+  TEXT            String    @db.VarChar(50)
+  THK             Float     @db.Real
+  THK_ORD         Float     @db.Real
+  CPLUSF          Int
+  CPLUSV          Float     @db.Real
+  CFACTOR         Float     @db.Real
+  COST            Float     @db.Real
+  ORDERID         String    @db.VarChar(32)
+  CLASS_CUT       String    @db.VarChar(8)
+  SURF_LOC        Int
+  AUFMASSSAE      Float     @db.Real
+  BESTELLUNG      String    @db.VarChar(32)
+  COMMENT         String    @db.VarChar(80)
+  A_COLOR         Int
+  DATUM           Int
+  VON_            String    @db.VarChar(30)
+  RENDER_PRZ      String    @db.VarChar(32)
+  NEW_IMPORT      Int
+  DB_PATH         String    @db.VarChar(254)
+  GRAIN           Int
+  CPLUSV_Y        Float     @db.Real
+  MATCAT          String    @db.VarChar(80)
+  CATALOG_ID      Int
+  WORKPLAN_ID     Int
+  INORDER         String    @db.VarChar(30)
+  STHK            String    @db.VarChar(50)
+  STHK_ORD        String    @db.VarChar(50)
+  SCFACTOR        String    @db.VarChar(50)
+  SCOST           String    @db.VarChar(256)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+  SUPPLIER        String    @db.VarChar(80)
+  SDWEIGHT        String    @db.VarChar(256)
+  OVERSIZEX       String    @db.VarChar(50)
+  OVERSIZEY       String    @db.VarChar(50)
+  odoo_id         Int?
+  odoo_tosync     Boolean?
+
+  @@unique([NAME, INORDER], map: "MAT_IX")
+}
+
+model SURF {
+  NAME            String    @db.VarChar(32)
+  TEXT            String    @db.VarChar(50)
+  THK             Float     @db.Real
+  THK_ORD         Float     @db.Real
+  COST            Float     @db.Real
+  CFACTOR         Float     @db.Real
+  CPLUSF          Int
+  CPLUSV          Float     @db.Real
+  CLASS_CUT       String    @db.VarChar(8)
+  SURF_TYPE       Int
+  BESTELLUNG      String    @db.VarChar(32)
+  COMMENT         String    @db.VarChar(80)
+  A_COLOR         Int
+  DATUM           Int
+  VON_            String    @db.VarChar(30)
+  RENDER_PRZ      String    @db.VarChar(32)
+  ORDERID         String    @db.VarChar(32)
+  NEW_IMPORT      Int
+  DB_PATH         String    @db.VarChar(254)
+  GRAIN           Int
+  CPLUSV_Y        Float     @db.Real
+  CATALOG_ID      Int
+  WORKPLAN_ID     Int
+  INORDER         String    @db.VarChar(30)
+  STHK            String    @db.VarChar(50)
+  STHK_ORD        String    @db.VarChar(50)
+  SCOST           String    @db.VarChar(256)
+  SCFACTOR        String    @db.VarChar(50)
+  CREATVPART      Int
+  VPART_MAT       String    @db.VarChar(32)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+  SURFCAT         String    @db.VarChar(80)
+  ENABLEWORKFLOW  Boolean
+  OVERSIZEX       String    @db.VarChar(50)
+  OVERSIZEY       String    @db.VarChar(50)
+  odoo_id         Int?
+  odoo_tosync     Boolean?
+
+  @@unique([NAME, INORDER], map: "SURF_IX")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model WORKPLAN {
+  WORKPLAN_ID     Int
+  WORKSTEP_ID     Int
+  SEQUENZE        Int
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+
+  @@index([WORKPLAN_ID], map: "IX_WORKPLAN_ID")
+  @@ignore
+}
+
+model WORKPLANDEF {
+  ID              Int       @id
+  TYPE            Int
+  NAME            String    @db.VarChar(50)
+  COMMENT         String    @db.VarChar(255)
+  SEQUENCE        Int
+  ADDTYPE         Int
+  ADDFILTER       String    @db.VarChar(100)
+  CONDITION_ID    Int
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+
+  @@index([ID], map: "IX_WORKPLANDEF_ID")
+  @@index([NAME], map: "IX_WORKPLANDEF_NAME")
+  @@index([NAME, TYPE], map: "IX_WORKPLANDEF_NAM_TYP")
+}
+
+model WORKSTEP {
+  ID                   Int
+  NAME                 String    @db.VarChar(50)
+  SEQUENCE             Int
+  MOVE_ENABLE          Int
+  MOVE_MIN             Int
+  MOVE_MAX             Int
+  COST_CENTER_ID       Int
+  TIME_SETUP           String    @db.VarChar(512)
+  TIME_PROCESS         String    @db.VarChar(512)
+  TIME_SHARE           String    @db.VarChar(512)
+  TIME_SETUP_FORMULA   String    @db.VarChar(512)
+  TIME_PROCESS_FORMULA String    @db.VarChar(512)
+  TIME_SHARE_FORMULA   String    @db.VarChar(512)
+  TYPE                 Int
+  WGTYPE               Int
+  DE_MIN               Float
+  DE_MAX               Float
+  DIA_MIN              Float
+  DIA_MAX              Float
+  NUT_MIN              Float
+  NUT_MAX              Float
+  ORTYPE               String    @db.VarChar(50)
+  COMMENT              String    @db.VarChar(255)
+  CFACTOR              Float
+  DATE_LASTCHANGE      DateTime? @db.Timestamp(6)
+  SOURCE               String    @db.VarChar(80)
+  PRODUCER             String    @db.VarChar(80)
+  SYS                  Boolean
+
+  @@unique([NAME, COST_CENTER_ID, TIME_SETUP, TIME_PROCESS, TIME_SHARE, TIME_SETUP_FORMULA, TIME_PROCESS_FORMULA, TIME_SHARE_FORMULA, CFACTOR, ID], map: "IX_WORKSTEP_ID")
+  @@index([NAME], map: "IX_WORKSTEP_NAME")
+}
+
+model anglclie {
+  NAME            String    @db.VarChar(30)
+  TREEID          String    @db.VarChar(50)
+  TAGNAME         String    @db.VarChar(50)
+  TAGVALUE        String    @db.VarChar(50)
+  DATATYPE        Int
+  INORDER         String    @db.VarChar(30)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+
+  @@unique([NAME, INORDER, DATATYPE, TREEID, TAGNAME], map: "ANGLCLIE_IX")
+}
+
+model anglelem {
+  NAME                String    @db.VarChar(30)
+  TREEID              String    @db.VarChar(50)
+  FUNCT               String    @db.VarChar(1)
+  PARTTYPE            String    @db.VarChar(1)
+  CPNAME              String    @db.VarChar(51)
+  PARTNAME            String    @db.VarChar(80)
+  STARTTRIM           String    @db.VarChar(1)
+  ENDTRIM             String    @db.VarChar(1)
+  INSET               Float     @db.Real
+  SHELFINSET          Float     @db.Real
+  STARTOFFS           Float     @db.Real
+  ENDOFFS             Float     @db.Real
+  TOPOFFS             Float     @db.Real
+  BOTOFFS             Float     @db.Real
+  SUPPORT             String    @db.VarChar(30)
+  GROOVE              String    @db.VarChar(30)
+  CONNECTOR           String    @db.VarChar(30)
+  LINDIV              String    @db.VarChar(80)
+  TODOSUPP            Boolean
+  ELEMID              Int
+  DATUM               Int
+  VON_                String    @db.VarChar(30)
+  TOPTRIM             String    @db.VarChar(1)
+  BOTTRIM             String    @db.VarChar(1)
+  INCLINAT            Float     @db.Real
+  CHCONDIV            Boolean
+  CHCONTOP            Boolean
+  CHCONBOT            Boolean
+  CHCONNEXT           Boolean
+  CHCONPREV           Boolean
+  CHGROOVE            Boolean
+  TOPSHOFF            Float     @db.Real
+  BOTSHOFF            Float     @db.Real
+  RIGHTSIDE           Boolean
+  ADDERSIDE           Boolean
+  ENMANINFO           Int
+  MANINFO             String    @db.VarChar(30)
+  STATRVAR            String    @db.VarChar(50)
+  ENDTRVAR            String    @db.VarChar(50)
+  TOPTRVAR            String    @db.VarChar(50)
+  BOTTRVAR            String    @db.VarChar(50)
+  STATREAB            Boolean
+  ENDTREAB            Boolean
+  TOPTREAB            Boolean
+  BOTTREAB            Boolean
+  TOPOFFFOR           String    @db.VarChar(50)
+  BOTOFFFOR           String    @db.VarChar(50)
+  TSHOFFFOR           String    @db.VarChar(50)
+  BSHOFFFOR           String    @db.VarChar(50)
+  INCLINFOR           String    @db.VarChar(50)
+  ENDOFFFOR           String    @db.VarChar(50)
+  STAOFFFOR           String    @db.VarChar(50)
+  INSETFOR            String    @db.VarChar(50)
+  SHELFINFOR          String    @db.VarChar(50)
+  CHCONIDIV           Boolean
+  CHCONITOP           Boolean
+  CHCONIBOT           Boolean
+  CHCONINEXT          Boolean
+  CHCONIPREV          Boolean
+  CHCONI              Boolean
+  DISCONIBOT          Boolean
+  DISCONITOP          Boolean
+  DISCONIDIV          Boolean
+  DISCONINEX          Boolean
+  DISCONIPRE          Boolean
+  CATALOG_ID          Int
+  WORKPLAN_ID         Int
+  INORDER             String    @db.VarChar(30)
+  CHINSFRAME          Boolean
+  FRATREAB            Boolean
+  FRAMETRIM           String    @db.VarChar(1)
+  FRATRVAR            String    @db.VarChar(50)
+  FRAMENAME           String    @db.VarChar(51)
+  DIVIDINFOR          String    @db.VarChar(50)
+  DATE_LASTCHANGE     DateTime? @db.Timestamp(6)
+  SOURCE              String    @db.VarChar(80)
+  PRODUCER            String    @db.VarChar(80)
+  SYS                 Boolean
+  INSET_FA            Boolean
+  STAOFF_FA           Boolean
+  ENDOFF_FA           Boolean
+  BOTOFF_FA           Boolean
+  TOPOFF_FA           Boolean
+  DOORHISIDE          Int
+  FLAGS               Int
+  TS_OFFSET_FROM_ANGL Int
+  BS_OFFSET_FROM_ANGL Int
+  LFORMULA            String    @db.VarChar(200)
+  LFORMULA_FRA        String    @db.VarChar(200)
+  DOOR_CATEGORY       Int
+
+  @@unique([NAME, INORDER, TREEID], map: "ANGLELEM_IX")
+}
+
+model anglgrtx {
+  NAME            String    @db.VarChar(30)
+  TREEID          String    @db.VarChar(50)
+  NUM             Int
+  TEXT            String    @db.VarChar(80)
+  CATALOG_ID      Int
+  WORKPLAN_ID     Int
+  INORDER         String    @db.VarChar(30)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+
+  @@unique([NAME, INORDER, TREEID, NUM], map: "ANGLGRTX_IX")
+}
+
+model anglprim {
+  NAME             String    @db.VarChar(30)
+  CONTOUR          String    @db.VarChar(30)
+  SIZEX            Float     @db.Real
+  SIZEY            Float     @db.Real
+  SIZEZ            Float     @db.Real
+  INSERTPTX        String    @db.VarChar(80)
+  INSERTPTY        String    @db.VarChar(80)
+  DATUM            Int
+  VON_             String    @db.VarChar(30)
+  DIRECTORY        String    @db.VarChar(50)
+  HEIGHTGRID       String    @db.VarChar(30)
+  ANGOLOTYPE       Int
+  CSLEFT           Int
+  CSRIGHT          Int
+  CHFRONT          Boolean
+  FRONTNAME        String    @db.VarChar(30)
+  CHCRULES         Boolean
+  CRULESNAME       String    @db.VarChar(30)
+  BASECP           String    @db.VarChar(51)
+  BAINSET          Int
+  BATOEKICK        Int
+  BAINSERT         Int
+  BAHEIGHT         Int
+  BAHCOMPENS       Int
+  BAFIXHEIGH       Int
+  BAFIXHFOR        String    @db.VarChar(50)
+  ARTCALC1         String    @db.VarChar(30)
+  ARTCALC2         String    @db.VarChar(30)
+  ARTCALC3         String    @db.VarChar(30)
+  CATALOG_ID       Int
+  WORKPLAN_ID      Int
+  INORDER          String    @db.VarChar(30)
+  NEWSEQBOTP       Boolean
+  ANGVERSION       Float     @db.Real
+  DATE_LASTCHANGE  DateTime? @db.Timestamp(6)
+  SOURCE           String    @db.VarChar(80)
+  PRODUCER         String    @db.VarChar(80)
+  SYS              Boolean
+  CHCCONST         Boolean
+  LB_BASE_AD       Boolean
+  DIMCALCEX        Boolean
+  DIMCALCFX        String    @db.VarChar(80)
+  DIMCALCEY        Boolean
+  DIMCALCFY        String    @db.VarChar(80)
+  DIMCALCEZ        Boolean
+  DIMCALCFZ        String    @db.VarChar(80)
+  WIDTH_MIN        Float     @db.Real
+  WIDTH_MAX        Float     @db.Real
+  DEPTH_MIN        Float     @db.Real
+  DEPTH_MAX        Float     @db.Real
+  HEIGHT_MIN       Float     @db.Real
+  HEIGHT_MAX       Float     @db.Real
+  CONSTRUCTIONTYPE Int
+
+  @@unique([NAME, INORDER], map: "ANGLPRIM_IX")
+}
+
+model anglzone {
+  NAME                   String    @db.VarChar(30)
+  TREEID                 String    @db.VarChar(50)
+  DIVDIR                 String    @db.VarChar(1)
+  LINDIV1                String    @db.VarChar(80)
+  LINDIV2                String    @db.VarChar(80)
+  DIVELEM1               Int
+  DIVELEM2               Int
+  DIVANGLE               Float     @db.Real
+  TOPSHELF               String    @db.VarChar(51)
+  BOTSHELF               String    @db.VarChar(51)
+  DIVIDER                String    @db.VarChar(51)
+  DIVTYPE                String    @db.VarChar(1)
+  GROUPNAME              String    @db.VarChar(30)
+  GROUPTYPE              String    @db.VarChar(1)
+  ZOOMFACT               Float     @db.Real
+  ZOOMOFFX               Float     @db.Real
+  ZOOMOFFY               Float     @db.Real
+  ZOOMOFFZ               Float     @db.Real
+  DATUM                  Int
+  VON_                   String    @db.VarChar(30)
+  HORDEFTYPE             String    @db.VarChar(1)
+  SIZREFOUT1             String    @db.VarChar(1)
+  SIZREFEDG1             String    @db.VarChar(1)
+  SIZREFMID              String    @db.VarChar(1)
+  SIZREFEDG2             String    @db.VarChar(1)
+  SIZREFOUT2             String    @db.VarChar(1)
+  SIZREFTYPE             String    @db.VarChar(6)
+  ZOOMINIT               Boolean
+  SHELFEDGE              Int
+  SHELFORI               Int
+  LEFTHINGE              Int
+  RIGHTHINGE             Int
+  ENMANINFTS             Int
+  ENMANINFBS             Int
+  ENMANINFDI             Int
+  MANINFOTS              String    @db.VarChar(30)
+  MANINFOBS              String    @db.VarChar(30)
+  MANINFODI              String    @db.VarChar(30)
+  NOCONN2NEI             Int
+  CATALOG_ID             Int
+  WORKPLAN_ID            Int
+  INORDER                String    @db.VarChar(30)
+  ENDIVFRAME             Boolean
+  DIVFRAME               String    @db.VarChar(30)
+  LENGTHREFE             Int
+  ZOOMQUAD               Boolean
+  DATE_LASTCHANGE        DateTime? @db.Timestamp(6)
+  SOURCE                 String    @db.VarChar(80)
+  PRODUCER               String    @db.VarChar(80)
+  SYS                    Boolean
+  DRAWERFLAG             Boolean
+  SUPPRESSLB             Boolean
+  LRDIVIDER              Boolean
+  LRFROMPAR              Boolean
+  LRTOPSHELF             Boolean
+  LRDOORCONN             Boolean
+  LRBOTSHELF             Boolean
+  LRTAKEOVER             Boolean
+  LRRADSHELF             String    @db.VarChar(30)
+  LRRADCONN              String    @db.VarChar(30)
+  DOORISBACK             Boolean
+  BACKISDOOR             Boolean
+  LRRADSHEL2             String    @db.VarChar(30)
+  LRRADCON2              String    @db.VarChar(30)
+  DOORHISIDE             Int
+  TOGRUNDFORM            Boolean
+  BOGRUNDFORM            Boolean
+  DIGRUNDFORM            Boolean
+  SDIVANGLE              String    @db.VarChar(50)
+  LFORMULA_TOP           String    @db.VarChar(200)
+  LFORMULA_BOT           String    @db.VarChar(200)
+  LFORMULA_DIV           String    @db.VarChar(200)
+  LFORMULA_DIVFRA        String    @db.VarChar(200)
+  LINDIVZ                String    @db.VarChar(80)
+  DWG_FILENAME           String    @db.VarChar(254)
+  DWG_STRETCH            Boolean
+  ARTICLEZONEINTEGRATION Boolean
+
+  @@unique([NAME, INORDER, TREEID], map: "ANGLZONE_IX")
+}
+
+model articles {
+  NAME                 String    @db.VarChar(30)
+  TYPE                 Int
+  CATEGORIE            String    @db.VarChar(30)
+  MAIN_NAME            String    @db.VarChar(30)
+  DIRECTORY            String    @db.VarChar(254)
+  DESCRIPT_1           String    @db.VarChar(254)
+  DESCRIPT_2           String    @db.VarChar(254)
+  PICTURE              String    @db.VarChar(254)
+  SIZEX_REAL           Float     @db.Real
+  SIZEX_PLAN           Float     @db.Real
+  SIZEX_FIX            Boolean
+  SIZEY_REAL           Float     @db.Real
+  SIZEY_PLAN           Float     @db.Real
+  SIZEY_FIX            Boolean
+  SIZEZ_REAL           Float     @db.Real
+  SIZEZ_PLAN           Float     @db.Real
+  SIZE_Z_FIX           Boolean
+  REFHEIGHT            Float     @db.Real
+  MANUFACTUR           String    @db.VarChar(30)
+  SET_                 String    @db.VarChar(30)
+  ART_NUMBER           String    @db.VarChar(30)
+  PRICE_1              String    @db.VarChar(80)
+  PRICE_2              String    @db.VarChar(80)
+  PRICE_3              String    @db.VarChar(80)
+  PRICE_4              String    @db.VarChar(80)
+  PRICE_5              String    @db.VarChar(80)
+  PRICE_6              String    @db.VarChar(80)
+  PRICE_7              String    @db.VarChar(80)
+  INFO_1               String    @db.VarChar(80)
+  INFO_2               String    @db.VarChar(80)
+  INFO_3               String    @db.VarChar(80)
+  INFO_4               String    @db.VarChar(80)
+  INFO_5               String    @db.VarChar(80)
+  INFO_6               String    @db.VarChar(80)
+  INFO_7               String    @db.VarChar(80)
+  INFO_8               String    @db.VarChar(80)
+  INFO_9               String    @db.VarChar(80)
+  INFO_10              String    @db.VarChar(80)
+  INFO_11              String    @db.VarChar(80)
+  INFO_12              String    @db.VarChar(80)
+  INFO_13              String    @db.VarChar(80)
+  INFO_14              String    @db.VarChar(80)
+  INFO_15              String    @db.VarChar(80)
+  DATUM                Int
+  VON_                 String    @db.VarChar(30)
+  CATALOG_ID           Int
+  WORKPLAN_ID          Int
+  INORDER              String    @db.VarChar(30)
+  Z_REF_NEW            Int
+  Z_REF_OLD            Int
+  HRASTERID            Int
+  ATTBLOCK             String    @db.VarChar(254)
+  DATE_LASTCHANGE      DateTime? @db.Timestamp(6)
+  SOURCE               String    @db.VarChar(80)
+  PRODUCER             String    @db.VarChar(80)
+  SYS                  Boolean
+  SWEIGHT              String    @db.VarChar(256)
+  ARTICLECATEGORY_NAME String    @db.VarChar(30)
+  IS_OWN_POSITION      Boolean
+  IS_PURCHASED         Boolean
+  IN_DECO_CATALOG      Boolean
+  ARTICLESERIES        String    @db.VarChar(30)
+  CALCPRINCIPLE        String    @db.VarChar(50)
+  IS_INSTALLATION      Boolean
+  VAR_LIST             String    @db.VarChar(50)
+  BLOCKGEN2D           Int
+  KIND_OF_ARTICLE      Int
+
+  @@unique([NAME, INORDER], map: "ARTICLES_IX")
+}
+
+model RENDER {
+  NAME            String    @db.VarChar(30)
+  RENDER_MAT      String    @db.VarChar(30)
+  ROTATION        Float     @db.Real
+  SCALEFAKT       Float     @db.Real
+  CATALOG_ID      Int
+  WORKPLAN_ID     Int
+  INORDER         String    @db.VarChar(30)
+  CODE1           String    @db.VarChar(30)
+  CODE2           String    @db.VarChar(30)
+  CODE3           String    @db.VarChar(30)
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+  SCOST           String    @db.VarChar(256)
+  SCFACTOR        String    @db.VarChar(50)
+  USEATWALL       Boolean
+  USEATFLOOR      Boolean
+  USEATCEILING    Boolean
+  USEATWINDOW     Boolean
+
+  @@unique([NAME, INORDER], map: "RENDER_IX")
+}
+
+model RENDERMATERIAL {
+  NAME            String    @unique(map: "IM_INDEX") @db.VarChar(120)
+  TEXTURE         String    @db.VarChar(120)
+  DIFFUSE_R       Float     @db.Real
+  DIFFUSE_G       Float     @db.Real
+  DIFFUSE_B       Float     @db.Real
+  AMBIENT_R       Float     @db.Real
+  AMBIENT_G       Float     @db.Real
+  AMBIENT_B       Float     @db.Real
+  SPECULAR_R      Float     @db.Real
+  SPECULAR_G      Float     @db.Real
+  SPECULAR_B      Float     @db.Real
+  TRANSPARENCY    Float     @db.Real
+  BLENDFACTOR     Float     @db.Real
+  SELFILLUMPCT    Float     @db.Real
+  SHININESS       Float     @db.Real
+  REFLECTIVITY    Float     @db.Real
+  DATE_LASTCHANGE DateTime? @db.Timestamp(6)
+  SOURCE          String    @db.VarChar(80)
+  PRODUCER        String    @db.VarChar(80)
+  SYS             Boolean
+}
