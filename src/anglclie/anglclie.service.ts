@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import {anglclieSelect} from "./dto/anglclie.types";
 
+
+// a check for auto deploy per push 
 @Injectable()
 export class AnglclieService {
   constructor(private databaseService: DatabaseService) {}
